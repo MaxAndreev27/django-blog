@@ -14,3 +14,18 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["name", "email", "body"]
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Search...",
+                "aria-label": "Search",
+            }
+        ),
+        label="Пошук",
+    )
