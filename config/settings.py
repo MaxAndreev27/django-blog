@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,17 @@ SECRET_KEY = "django-insecure-0^7+f&1mi*nwn(qrcw@s_x*nu5sljm0#z@ul%39moyp-+**(qj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    os.environ.get("FLY_APP_NAME", "") + ".fly.dev",
+    "localhost",
+    "127.0.0.1",
+]
+
+if "FLY_APP_NAME" in os.environ:
+    APP_NAME = os.environ.get("FLY_APP_NAME")
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{APP_NAME}.fly.dev",
+    ]
 
 SITE_ID = 1
 
@@ -55,6 +66,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # User midd
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -79,11 +92,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+if os.environ.get("FLY_APP_NAME"):
+    DB_DIR = Path("/data")
+else:
+    DB_DIR = BASE_DIR
+
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DB_DIR / "db.sqlite3",
     }
 }
 
@@ -135,3 +153,10 @@ EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
