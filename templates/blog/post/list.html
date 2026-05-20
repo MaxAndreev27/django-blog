@@ -3,6 +3,11 @@
 
 {% block title %}My Blog{% endblock %}
 
+{% block breadcrumbs %}
+    <span style="margin: 0 8px; color: #6c757d;">&raquo;</span>
+    <span style="color: #6c757d;">All posts</span>
+{% endblock %}
+
 {% block content %}
     <h1>My Blog</h1>
     {% if tag %}

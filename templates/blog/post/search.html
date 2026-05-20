@@ -3,6 +3,11 @@
 
 {% block title %}Search{% endblock %}
 
+{% block breadcrumbs %}
+    <span style="margin: 0 8px; color: #6c757d;">&raquo;</span>
+    <span style="color: #6c757d;">Blog search</span>
+{% endblock %}
+
 {% block content %}
   {% if query %}
     <h1>Posts containing "{{ query }}"</h1>

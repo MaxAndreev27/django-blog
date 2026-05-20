@@ -3,6 +3,13 @@
 
 {% block title %}{{ post.title }}{% endblock %}
 
+{% block breadcrumbs %}
+    <span style="margin: 0 8px; color: #6c757d;">&raquo;</span>
+    <a href="{% url 'blog:post_list' %}" style="text-decoration: none; color: #007bff;">Blog</a>
+    <span style="margin: 0 8px; color: #6c757d;">&raquo;</span>
+    <span style="color: #6c757d;">{{ post.title }}</span>
+{% endblock %}
+
 {% block content %}
     <h1>{{ post.title }}</h1>
     <p class="date">

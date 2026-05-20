@@ -20,6 +20,27 @@ h2 {
     margin: 30px 0 0;
 }
 
+#header {
+    background: #f8f9fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    margin: 0 8px;
+    color: #6c757d;
+}
+
 #content {
     float: left;
     width: 60%;
