@@ -27,5 +27,5 @@ class SearchForm(forms.Form):
                 "aria-label": "Search",
             }
         ),
-        label="Пошук",
+        label="Search",
     )
