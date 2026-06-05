@@ -1,7 +1,16 @@
+/* ==========================================================================
+   Базові налаштування та скидання стилів
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: helvetica, sans-serif;
+    background: #ffffff;
+    color: #333333;
 }
 
 a {
@@ -9,20 +18,33 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #008ecc;
+}
+
 h1 {
     font-weight: normal;
     border-bottom: 1px solid #bbb;
     padding: 0 0 10px 0;
+    margin-top: 10px;
 }
 
 h2 {
     font-weight: normal;
-    margin: 30px 0 0;
+    margin: 30px 0 15px;
 }
 
+h3 {
+    font-weight: normal;
+    margin: 25px 0 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Шапка (Залишаємо інлайнові стилі з HTML, але додаємо адаптивні відступи) */
 #header {
     background: #f8f9fa;
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-bottom: 1px solid #e9ecef;
     margin-bottom: 20px;
 }
@@ -41,79 +63,173 @@ h2 {
     color: #6c757d;
 }
 
-#content {
-    float: left;
-    width: 60%;
-    padding: 0 0 0 30px;
-}
-
-#sidebar {
-    float: right;
-    width: 30%;
-    padding: 10px;
-    background: #efefef;
-    height: 100%;
-}
-
 p.date {
-    color: #ccc;
+    color: #888888;
     font-family: georgia, serif;
     font-size: 12px;
     font-style: italic;
 }
 
-/* pagination */
+/* Пагінація (Pagination) */
 .pagination {
     margin: 40px 0;
     font-weight: bold;
 }
 
-/* forms */
-label {
-    float: left;
-    clear: both;
-    color: #333;
-    margin-bottom: 4px;
+/* ==========================================================================
+   Елементи структури за замовчуванням (Мобільний вигляд — одна колонка)
+   ========================================================================== */
+#content {
+    width: 100%;
+    padding: 0 15px;
+    margin-bottom: 30px;
 }
 
-input,
+#sidebar {
+    width: 100%;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+}
+
+#sidebar ul {
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Форми (Django Forms) — Очищено від зламаних флоатів
+   ========================================================================== */
+label {
+    display: block;
+    color: #333;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
 textarea {
-    clear: both;
-    float: left;
-    margin: 0 0 10px;
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 0 15px 0;
     background: #ededed;
-    border: 0;
-    padding: 6px 10px;
-    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+    background: #ffffff;
+    border-color: #00abff;
+    outline: none;
 }
 
 input[type=submit] {
+    display: inline-block;
     font-weight: bold;
     background: #00abff;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 25px;
     font-size: 14px;
     text-transform: uppercase;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+input[type=submit]:hover {
+    background: #008ecc;
 }
 
 .errorlist {
     color: #cc0033;
-    float: left;
-    clear: both;
-    padding-left: 10px;
+    list-style: none;
+    padding-left: 0;
+    margin: -10px 0 15px 0;
+    font-size: 13px;
+    font-weight: bold;
 }
 
-/* comments */
+/* ==========================================================================
+   Коментарі (Comments)
+   ========================================================================== */
 .comment {
-    padding: 10px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    margin-bottom: 12px;
 }
 
 .comment:nth-child(even) {
-    background: #efefef;
+    background: #f9f9f9;
 }
 
 .comment .info {
     font-weight: bold;
     font-size: 12px;
     color: #666;
+    margin-bottom: 5px;
+}
+
+/* ==========================================================================
+   Десктопна адаптація та Контейнер 1200px (Екрани від 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+    body {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Шапка розтягується на всю ширину 1200px грида */
+    #header {
+        grid-column: span 12;
+        margin-left: -20px;
+        margin-right: -20px;
+        border-radius: 0 0 6px 6px;
+    }
+
+    /* Основний контент займає 8 колонок з 12 (приблизно 66%) */
+    #content {
+        grid-column: span 8;
+        padding: 0;
+        margin-bottom: 0;
+    }
+
+    /* Сайдбар займає 4 колонки з 12 (приблизно 33%) */
+    #sidebar {
+        grid-column: span 4;
+        height: fit-content;
+        /* Сайдбар не розтягується штучно, якщо контенту мало */
+    }
+}
+
+/* Додаткове налаштування для зручності кнопок на мобільних */
+@media (max-width: 767px) {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="search"],
+    textarea {
+        max-width: 100%;
+        /* На смартфонах форми займають усю ширину екрана */
+    }
+
+    input[type=submit] {
+        width: 100%;
+        text-align: center;
+    }
 }
