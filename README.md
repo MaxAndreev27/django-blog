@@ -1,6 +1,6 @@
 # Django Blog
 
-A Django blog application built while working through the first three chapters of _Django 4 by Example_ by Antonio Melé. It includes post management, tags, pagination, search, email sharing, and comments.
+A Django blog application inspired by the patterns in _Django 4 by Example_ by Antonio Melé, implemented with Python 3.13.13 and Django 6.1.1. The project includes post management, tags, pagination, search, email sharing, comments, and Fly.io deployment support.
 
 ## Features
 
@@ -16,8 +16,9 @@ A Django blog application built while working through the first three chapters o
 
 ### Requirements
 
-- Python 3.13+
+- Python 3.13.13
 - pip
+- Project dependencies from `requirements.txt` including Django 6.1.1, `django-taggit` 6.1.0, `Markdown` 3.10.3, and `whitenoise` 6.12.0
 
 ### Local setup
 
