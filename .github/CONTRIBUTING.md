@@ -9,9 +9,9 @@ For bugs and feature ideas, search existing issues first. Open a new issue when 
 ## Development
 
 1. Fork the repository and create a focused branch from `main`.
-2. Set up a virtual environment and install `requirements.txt`.
+2. Install [uv](https://docs.astral.sh/uv/) and run `uv sync`. Use `uv add <package>` to change dependencies and commit `pyproject.toml` and `uv.lock`.
 3. Make the smallest change that addresses the issue.
-4. Run `python manage.py test` and verify the affected page or command locally.
+4. Run `uv run python manage.py test` and verify the affected page or command locally.
 5. Update documentation when behavior or setup changes.
 6. Open a pull request using the pull request template.
 

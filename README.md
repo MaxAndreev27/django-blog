@@ -1,6 +1,6 @@
 # Django Blog
 
-A Django blog application inspired by the patterns in _Django 4 by Example_ by Antonio Melé, implemented with Python 3.13.13 and Django 6.1.1. The project includes post management, tags, pagination, search, email sharing, comments, and Fly.io deployment support.
+A Django blog application inspired by the patterns in _Django 4 by Example_ by Antonio Melé, implemented with Python 3.12.16 and Django 6.1.1. The project includes post management, tags, pagination, search, email sharing, comments, and Fly.io deployment support.
 
 ## Features
 
@@ -16,28 +16,26 @@ A Django blog application inspired by the patterns in _Django 4 by Example_ by A
 
 ### Requirements
 
-- Python 3.13.13
-- pip
-- Project dependencies from `requirements.txt` including Django 6.1.1, `django-taggit` 6.1.0, `Markdown` 3.10.3, and `whitenoise` 6.12.0
+- Python 3.12.16
+- [uv](https://docs.astral.sh/uv/)
+- Project dependencies from `pyproject.toml` (locked in `uv.lock`) including Django 6.1.1, `django-taggit` 6.1.0, `Markdown` 3.10.3, and `whitenoise` 6.12.0
 
 ### Local setup
 
 ```bash
 git clone https://github.com/MaxAndreev27/django-blog.git
 cd django-blog
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+uv sync
+uv run python manage.py migrate
+uv run python manage.py runserver
 ```
 
-Open `http://127.0.0.1:8000/` in a browser. Create an administrator account with `python manage.py createsuperuser` to manage posts and comments.
+Open `http://127.0.0.1:8000/` in a browser. Create an administrator account with `uv run python manage.py createsuperuser` to manage posts and comments.
 
 Run the test suite with:
 
 ```bash
-python manage.py test
+uv run python manage.py test
 ```
 
 ## Configuration
@@ -46,7 +44,7 @@ For local development, Django uses SQLite and the console email backend by defau
 
 ## Deployment
 
-The repository includes a `Dockerfile`, `fly.toml`, and a GitHub Actions workflow for Fly.io. Configure the `FLY_API_TOKEN` repository secret before pushing to `main`; pushes to that branch trigger deployment.
+The repository includes a `Dockerfile`, `fly.toml`, and and GitHub Actions workflows for CI and Fly.io deployment. The Docker image installs locked dependencies with `uv sync --frozen --no-dev`. Configure the `FLY_API_TOKEN` repository secret before pushing to `main`; pushes to that branch trigger deployment.
 
 ## Repository Structure
 
@@ -59,7 +57,8 @@ The repository includes a `Dockerfile`, `fly.toml`, and a GitHub Actions workflo
 ├── static/                         # Application stylesheets and assets
 ├── Dockerfile
 ├── fly.toml
-└── requirements.txt
+├── pyproject.toml                  # Project metadata and dependencies
+└── uv.lock                         # Locked dependency versions
 ```
 
 ## Contributing

@@ -1,19 +1,23 @@
-ARG PYTHON_VERSION=3.13-slim
+ARG PYTHON_VERSION=3.12.16-slim
 
 FROM python:${PYTHON_VERSION}
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 RUN mkdir -p /code
 
 WORKDIR /code
 
-COPY requirements.txt /tmp/requirements.txt
-RUN set -ex && \
-    pip install --upgrade pip && \
-    pip install -r /tmp/requirements.txt && \
-    rm -rf /root/.cache/
+COPY --from=ghcr.io/astral-sh/uv:0.13.6 /uv /uvx /bin/
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    PATH="/code/.venv/bin:$PATH"
+
+COPY pyproject.toml uv.lock .python-version /code/
+RUN uv sync --frozen --no-dev --no-install-project
 
 COPY . /code
 

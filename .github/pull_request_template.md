@@ -4,7 +4,7 @@
 
 ## Testing
 
-- [ ] `python manage.py test`
+- [ ] `uv run python manage.py test`
 - [ ] Verified the affected behavior locally
 
 ## Checklist
