@@ -38,6 +38,8 @@ Run the test suite with:
 uv run python manage.py test
 ```
 
+Dependencies are constrained to their current minor release series in `pyproject.toml`, while `uv.lock` records the resolved versions. To update within those constraints, run `uv lock --upgrade` and `uv sync --locked`, then run the checks and tests. Commit both files when their contents change.
+
 ## Configuration
 
 For local development, Django uses SQLite and the console email backend by default. `manage.py` already sets `DJANGO_SETTINGS_MODULE` to `config.settings`; set it manually only when invoking Django from another entry point. Fly.io deployments use `FLY_APP_NAME` to select the persistent `/data` database location and configure the app host. Review the development `SECRET_KEY`, `DEBUG`, allowed hosts, and email settings in `config/settings.py` before using the application in production.
